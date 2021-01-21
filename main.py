@@ -9,10 +9,12 @@ from model import Donation, Donor
 
 app = Flask(__name__)
 
+
 @app.route('/')
 def home():
     """home redirect"""
     return redirect(url_for('donations'))
+
 
 @app.route('/donations/', methods=['GET', 'POST'])
 def donations():
@@ -39,10 +41,12 @@ def donations():
 
         return redirect(url_for('list_donations'))
 
+
 @app.route('/list/')
 def list_donations():
     """get Donation table and post it"""
     return render_template('donations.jinja2', donations=Donation.select())
+
 
 def _find_donor(name):
     """
@@ -53,6 +57,7 @@ def _find_donor(name):
     """
     donors = Donor.select().where(Donor.name == name)
     return any([donor.id for donor in donors])
+
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 6738))
